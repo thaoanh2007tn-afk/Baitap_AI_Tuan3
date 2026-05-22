@@ -7,14 +7,11 @@
 ```
 diabetes_app/
 │
-├── main.py                  ← Entry point (chạy file này)
+├── main.py                  ← Entry point 
 │
 ├── assets/
 │   ├── style.css            ← Toàn bộ CSS/thiết kế chung
-│   ├── anh_1.jpg            ← (tuỳ chọn) Ảnh thực tế cho gallery
-│   ├── anh_2.jpg
-│   └── anh_n.jpg            ← Thêm bao nhiêu ảnh cũng được
-│
+│   
 ├── models/
 │   ├── diabetes_model.h5    ← Mô hình Keras đã train
 │   └── scaler.pkl           ← StandardScaler đã fit
@@ -44,25 +41,15 @@ DEFAULT_ACCOUNTS = {
     "duongtang@health.ai": {"password": "duongtang123", "name": "Đường Tăng"},
     "satang@health.ai": {"password": "satang123", "name": "Sa Tăng"},
 }
-## Thêm ảnh vào gallery
-
-Đặt file ảnh vào thư mục `assets/` với tên `anh_1.jpg`, `anh_2.jpg`, … `anh_n.jpg`  
-(hỗ trợ `.jpg`, `.jpeg`, `.png`, `.webp`).
-
-Nếu không có ảnh thực, hệ thống tự động hiển thị **6 ảnh SVG minh hoạ** chủ đề y tế.
 
 ## Luồng điều hướng
 
 ```
 Login page  ─(đăng nhập thành công)→  Home page
 Home page   ─(bấm "Bắt đầu kiểm tra")→  Predict page
-Predict page ─(bấm "Phân tích")→  Popup kết quả (overlay)
-Predict page ─(bấm "Quay về")→  Home page
+Predict page ─(bấm "Phân tích")→  Popup kết quả =
+Pop up kết quả ─(bấm "Thực hiện đánh giá nới")→  Predict pages
 Home page   ─(bấm "Đăng xuất")→  Login page
 ```
 
-## Ghi chú
 
-- **Logic dự đoán giữ nguyên** so với `app.py` gốc — chỉ giao diện được thiết kế lại.
-- Kết quả AI hiển thị dưới dạng **popup overlay** với thanh tiến trình nguy cơ.
-- CSS hoàn toàn override giao diện mặc định của Streamlit.
