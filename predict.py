@@ -56,13 +56,12 @@ def _risk(prob):
     return "#ef4444", "#fee2e2", "NGUY CƠ CAO", "🚨", "Cao"
 
 def create_gauge_chart(probability):
-    # Xác định màu sắc chủ đạo theo mức độ rủi ro
     if probability < 0.3:
-        color = "#10b981"  # Xanh (An toàn)
+        color = "#10b981"  
     elif probability < 0.7:
-        color = "#f59e0b"  # Vàng (Cảnh báo)
+        color = "#f59e0b"  
     else:
-        color = "#ef4444"  # Đỏ (Nguy hiểm)
+        color = "#ef4444" 
 
     fig = go.Figure(go.Indicator(
         mode = "gauge+number",
@@ -79,12 +78,12 @@ def create_gauge_chart(probability):
             'axis': {
                 'range': [0, 100], 
                 'tickwidth': 1, 
-                'tickcolor': "#cbd5e1", # Màu xám nhạt cho vạch chia
-                'tickfont': {'color': '#94a3b8'} # Màu chữ vạch chia
+                'tickcolor': "#cbd5e1",
+                'tickfont': {'color': '#94a3b8'}
             },
-            'bar': {'color': color, 'thickness': 0.75}, # Thanh bar chính
-            'bgcolor': "rgba(0,0,0,0)", # Làm trong suốt nền của thanh gauge
-            'borderwidth': 0, # Xoá viền đen mặc định của Plotly
+            'bar': {'color': color, 'thickness': 0.75}, 
+            'bgcolor': "rgba(0,0,0,0)", 
+            'borderwidth': 0, 
             'steps': [
                 {'range': [0, 30], 'color': "#d1fae5"}, 
                 {'range': [30, 70], 'color': "#fef3c7"},
@@ -98,13 +97,12 @@ def create_gauge_chart(probability):
         }
     ))
     
-    # Ép toàn bộ khung biểu đồ thành trong suốt để hoà vào thẻ div chứa nó
     fig.update_layout(
         height=260, 
         margin=dict(l=20, r=20, t=40, b=10),
-        paper_bgcolor="rgba(0,0,0,0)", # Nền ngoài trong suốt
-        plot_bgcolor="rgba(0,0,0,0)",  # Nền trong trong suốt
-        font={'family': "Lora, serif"} # Khớp font chữ với web
+        paper_bgcolor="rgba(0,0,0,0)", 
+        plot_bgcolor="rgba(0,0,0,0)",  
+        font={'family': "Lora, serif"} 
     )
     
     return fig
@@ -142,7 +140,7 @@ def show():
         </div>
         """, unsafe_allow_html=True)
         
-        # Card kết quả chính
+      
         _, main_col, _ = st.columns([1, 8, 1])
         with main_col:
             col1, col2 = st.columns([1.1, 0.9], gap="large")
@@ -158,12 +156,12 @@ def show():
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # Hiển thị Gauge Chart ngay dưới Text
+            
                 fig = create_gauge_chart(result['pct'] / 100) 
                 st.plotly_chart(fig, use_container_width=True)
 
             with col2:
-                # Trình bày chỉ số dưới dạng Mini-cards
+        
                 st.markdown(f"""
                 <div style="background:white; border:1px solid #e2e8f0; border-radius:24px; padding:30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); height: 100%;">
                     <div style="font-family:'Lora',serif; font-size:20px; font-weight:700; margin-bottom:20px; color:#0f172a; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">
@@ -204,7 +202,7 @@ def show():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Lời khuyên
+      
             st.markdown("<div style='height:30px'></div>", unsafe_allow_html=True)
             st.markdown(f"<h3 style='font-family: Lora, serif; color: {result['color']};'>💡 Kế hoạch hành động đề xuất</h3>", unsafe_allow_html=True)
             
@@ -213,7 +211,7 @@ def show():
                 with st.expander(title, expanded=True):
                     st.write(desc)
             
-            # Buttons
+      
             st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
             col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
             with col_btn2:
@@ -237,7 +235,7 @@ def show():
             """, unsafe_allow_html=True)
     
     else:
-        # HIỂN THỊ FORM NHẬP LIỆU BAN ĐẦU
+  
         st.markdown("""
         <div style="background:linear-gradient(135deg,#e0f2fe,#f0fdf4); border-radius: 15px;
              border:1px solid #e2e8f0; padding:32px 24px; text-align:center; margin-bottom: 25px; margin-top: 15px;">
@@ -336,7 +334,7 @@ def show():
                     color, bg_col, level_txt, emoji, _ = _risk(prob)
                     pct = prob * 100
 
-                    # Tạo lời khuyên
+                 
                     if prob < 0.3:
                         advice_items = [
                             ("✅ Duy trì phong độ", "Chỉ số đang lý tưởng. Tiếp tục duy trì chế độ ăn uống cân bằng hiện tại."),
@@ -356,7 +354,6 @@ def show():
                             ("📊 Bắt đầu theo dõi tại nhà", "Mua máy đo đường huyết cá nhân và bắt đầu ghi chép lại chỉ số sau các bữa ăn chính."),
                         ]
 
-                    # Lưu kết quả
                     st.session_state["show_result"] = True
                     st.session_state["result_data"] = {
                         "pct": pct, "color": color, "bg_col": bg_col,
